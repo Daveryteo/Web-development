@@ -45,6 +45,8 @@ class DomainTaxaGet(generics.ListAPIView):
 
 #protein coverage
 class ProteinCoverage(generics.GenericAPIView):
+    queryset = Protein_Domain_link.objects.all()
+    serializer_class =  ProteinDomainLinkSerializer
     def get(self, request, protein_id):
         protein = Protein.objects.get(protein_id=protein_id)
         start = Protein_Domain_link.objects.filter(protein__protein_id=protein_id).aggregate(Sum('start'))['start__sum']
